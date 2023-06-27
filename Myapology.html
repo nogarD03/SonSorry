@@ -9,12 +9,17 @@
   </style>
 </head>
 <body>
-  <div id="questionSet1">
+  <div id="introScreen">
+    <h2>Welcome to the Questionnaire!</h2>
+    <p>Please answer the following questions:</p>
+    <button onclick="startQuestionnaire()">Start</button>
+  </div>
+
+  <div id="questionSet1" class="hidden">
     <h3>Question 1:</h3>
     <p>What is your favorite color?</p>
     <button onclick="selectAnswer(1)">Select Answer</button>
     <p id="answer1" class="hidden">My favorite color is blue.</p>
-
     <h3>Question 2:</h3>
     <p>What is your favorite animal?</p>
     <button onclick="selectAnswer(2)">Select Answer</button>
@@ -75,6 +80,11 @@
     let selectedAnswer = '';
     let currentQuestionSet = 1;
 
+     function startQuestionnaire() {
+      document.getElementById("introScreen").classList.add("hidden");
+      document.getElementById("questionSet1").classList.remove("hidden");
+    }
+    
     function selectAnswer(questionNumber) {
       const answerId = "answer" + questionNumber;
       selectedAnswer = document.getElementById(answerId).innerText;
