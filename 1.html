@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Questionnaire</title>
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="introScreen">
+    <h2>Welcome to the Questionnaire!</h2>
+    <p>Please answer the following questions:</p>
+    <button onclick="startQuestionnaire()">Start</button>
+  </div>
+
+  <div id="questionSet1" class="hidden">
+    <h3>Question 1:</h3>
+    <p>What is your favorite color?</p>
+    <button onclick="selectAnswer(1)">Select Answer</button>
+    <p id="answer1" class="hidden"></p>
+    <h3>Question 2:</h3>
+    <p>What is your favorite animal?</p>
+    <button onclick="selectAnswer(2)">Select Answer</button>
+    <p id="answer2" class="hidden"></p>
+
+    <h3>Question 3:</h3>
+    <p>What is your favorite food?</p>
+    <button onclick="selectAnswer(3)">Select Answer</button>
+    <p id="answer3" class="hidden"></p>
+  </div>
+
+  <div id="questionSet2" class="hidden">
+    <h3>Question 4:</h3>
+    <p>What is your favorite hobby?</p>
+    <button onclick="selectAnswer(4)">Select Answer</button>
+    <p id="answer4" class="hidden"></p>
+
+    <h3>Question 5:</h3>
+    <p>What is your favorite book?</p>
+    <button onclick="selectAnswer(5)">Select Answer</button>
+    <p id="answer5" class="hidden"></p>
+
+    <h3>Question 6:</h3>
+    <p>What is your favorite movie?</p>
+    <button onclick="selectAnswer(6)">Select Answer</button>
+    <p id="answer6" class="hidden"></p>
+  </div>
+
+  <div id="questionSet3" class="hidden">
+    <h3>Question 7:</h3>
+    <p>What is your favorite sport?</p>
+    <button onclick="selectAnswer(7)">Select Answer</button>
+    <p id="answer7" class="hidden"></p>
+
+    <h3>Question 8:</h3>
+    <p>What is your favorite music genre?</p>
+    <button onclick="selectAnswer(8)">Select Answer</button>
+    <p id="answer8" class="hidden"></p>
+
+    <h3>Question 9:</h3>
+    <p>What is your favorite vacation destination?</p>
+    <button onclick="selectAnswer(9)">Select Answer</button>
+    <p id="answer9" class="hidden"></p>
+  </div>
+
+  <div id="result" class="hidden">
+    <h2>Selected Answer</h2>
+    <p id="selectedAnswer"></p>
+    <button onclick="nextSet()">Next</button>
+  </div>
+
+  <div id="nextScreen" class="hidden">
+    <h2>Next Screen</h2>
+    <p>This is the next screen.</p>
+  </div>
+
+  <script>
+    let selectedAnswer = '';
+    let currentQuestionSet = 1;
+
+    const answers = {
+      answer1: "My favorite color is blue.",
+      answer2: "My favorite animal is a dog.",
+      answer3: "My favorite food is pizza.",
+      answer4: "My favorite hobby is playing guitar.",
+      answer5: "My favorite book is \"To Kill a Mockingbird\".",
+      answer6: "My favorite movie is \"The Shawshank Redemption\".",
+      answer7: "My favorite sport is soccer.",
+      answer8: "My favorite music genre is rock.",
+      answer9: "My favorite vacation destination is Hawaii."
+    };
+
+    // Check if the user has completed the questionnaire
+    if (sessionStorage.getItem('completedQuestionnaire')) {
+      // Redirect the user to a page indicating they have already participated
+      window.location.href = 'already-participated.html';
+    }
+
+    function startQuestionnaire() {
+      document.getElementById("introScreen").classList.add("hidden");
+      document.getElementById("questionSet1").classList.remove("hidden");
+    }
+
+    function selectAnswer(questionNumber) {
+      const answerId = "answer" + questionNumber;
+      selectedAnswer = answers[answerId];
+      document.getElementById("selectedAnswer").innerText = selectedAnswer;
+      document.getElementById(answerId).style.display = "none";
+      document.getElementById("questionSet" + currentQuestionSet).style.display = "none";
+      document.getElementById("result").style.display = "block";
+    }
+
+    function nextSet() {
+      if (currentQuestionSet === 3) {
+        // Set the flag to indicate the questionnaire completion
+        sessionStorage.setItem('completedQuestionnaire', true);
+
+        document.getElementById("result").style.display = "none";
+        document.getElementById("nextScreen").style.display = "block";
+      } else {
+        currentQuestionSet++;
+        document.getElementById("result").style.display = "none";
+        document.getElementById("questionSet" + currentQuestionSet).style.display = "block";
+      }
+    }
+  </script>
+ 
+</body>
+</html>
